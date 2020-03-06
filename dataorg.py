@@ -15,11 +15,11 @@ def FileNameList (DirPath, Mask):
             FinalNameList.append(name)
     return FinalNameList
 
-def rename(workingdir,namelist, num, insert):
+def rename(workingdir,namelist, length, position, insert):
 #This module rename files
     for name in sorted(filelist):
-        if (len(name)<14):
-        oldname = os.path.join(workingdir, name)
-        newname = os.path.join(workingdir, name[:num]+insert+name[num:])
-        os.rename(oldname,newname)
+        if (len(name)<length):
+            oldname = os.path.join(workingdir, name)
+            newname = os.path.join(workingdir, name[:position]+insert+name[position:])
+            os.rename(oldname,newname)
     return 0
