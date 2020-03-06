@@ -3,7 +3,6 @@
 # Author: Anton Sadovoy
 # This module work with data files.
 
-import numpy as np
 import os
 
 
@@ -15,3 +14,12 @@ def FileNameList (DirPath, Mask):
         if name.find(Mask) != -1: 
             FinalNameList.append(name)
     return FinalNameList
+
+def rename(workingdir,namelist, num, insert):
+#This module rename files
+    for name in sorted(filelist):
+        if (len(name)<14):
+        oldname = os.path.join(workingdir, name)
+        newname = os.path.join(workingdir, name[:num]+insert+name[num:])
+        os.rename(oldname,newname)
+    return 0
