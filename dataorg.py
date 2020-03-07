@@ -23,3 +23,13 @@ def rename(workingdir,namelist, length, position, insert):
             newname = os.path.join(workingdir, name[:position]+insert+name[position:])
             os.rename(oldname,newname)
     return 0
+
+
+def getfromname (filename, pattern):
+# Return data from file name by a pattern 'pH(.+?).asc'
+    import re
+    number = ''
+    text = re.search(pattern, filename)
+    if text:
+        number = text.group(1)
+    return float(number)
