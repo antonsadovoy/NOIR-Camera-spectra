@@ -26,7 +26,7 @@ def rename(workingdir,namelist, length, position, insert):
 
 
 def getfromname (filename, pattern):
-# Return data from file name by a pattern 'pH(.+?).asc'
+# Return data from file name by a pattern 
     import re
     number = ''
     text = re.search(pattern, filename)
