@@ -1,0 +1,63 @@
+# Controling multiple raspberry computers simultaniusly from a controling station
+1. Check if  SSH keys exist on raspberryPI
+Open raspbberyPI termonal
+$ ls ~/.ssh/
+>>authorized_keys  id_rsa  id_rsa.pub  known_hosts
+You have to see file id_rsa.pub and id_rsa they are public keys
+If you already use them, for example, to connect to remote git repositories DON'T change them
+Check if the files are correct
+$ cat ~/.ssh/id_rsa.pub
+>> ssh-rsa <key> user@host
+User in our case is 'pi' and host is 'raspberrypi' by default
+If everything is correct move to section 3.
+2. Generate SSH keys
+Open raspberryPI terminal
+$ssh-keygen
+>>Generating public/private rsa key pair.
+#If you dont want to change file name with keys just hit ENTER
+>>Enter file in which to save the key (/home/pi/.ssh/id_rsa):
+#You can passphrase to make keys more secured, otherwise just hit ENTER
+>>Enter passphrase (empty for no passphrase):
+>>Enter same passphrase again:
+>>Your identification has been saved in /home/pi/.ssh/id_rsa.
+>>Your public key has been saved in /home/pi/.ssh/id_rsa.pub.
+>>The key fingerprint is:
+>> <KEY> user@host
+>>The key's randomart image is:
+
+Check if key is generated
+$ ls ~/.ssh
+>>authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+3. Copy SSH keys
+Open a command line on a computer from which you will be control raspbberyPI's
+$ssh-copy-id <USERNAME>@<IP-ADDRESS>
+
+On Mac OS keys can store in Keychain
+$ssh-add -K ~/.ssh/id_rsa
+
+4. Check SSH keys
+From controlling computer connect to a remote computer if it doesn't requere a password then keys were correctly authentificated
+$ssh user@host
+>>Linux raspi01 4.19.97+ #1294 Thu Jan 30 13:10:54 GMT 2020 armv6l
+
+>>The programs included with the Debian GNU/Linux system are free software;
+>>the exact distribution terms for each program are described in the
+>>individual files in /usr/share/doc/*/copyright.
+
+>>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+>>permitted by applicable law.
+>>Last login: Thu Mar 12 23:21:09 2020 from 192.168.1.107
+
+5. Install mussh on a controlling computer (On macOS)
+$sudo brew install mussh
+
+6. Sending a command to remote computers
+$mussh -l <user> -m <number of remotes> -h <host1> <host2> ... -c 'comand'
+Example:
+Nexy script sending to raspberryPI's command to activate camera and shot a single phote and save to a file
+$mussh -l pi -m 2 -h raspi01 raspi02 -c 'raspistill -o test_mussh.jpg'
+
+
+
+
