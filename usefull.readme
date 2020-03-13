@@ -58,6 +58,38 @@ Example:
 Nexy script sending to raspberryPI's command to activate camera and shot a single phote and save to a file
 $mussh -l pi -m 2 -h raspi01 raspi02 -c 'raspistill -o test_mussh.jpg'
 
+# Check if there is a new file created and do an action
+This is used to check if there is a new file created in a cpecific folder and do some action like send this file to a server
+
+1. Install incont as root 
+$ root apt-get install incont
+
+2. Create a task
+$ root incrontab -e
+if
+>> user 'root' is not allowed to use incron
+then add requered users to /etc/incron.allow. I use vim and add root and pi users
+try one more time. should work not only ander root.
+Note. Defferent tasks can be created for each user.
+
+$incrontab -e
+> /home/pi/data	IN_CLOSE_WRITE	scp $# pi@raspi02:home/pi/data
+
+3. Check if task was created
+$ incrontab -l
+>> /home/pi/data	IN_CLOSE_WRITE	scp $# pi@raspi02:home/pi/data
+
+4. Check if incron works correctly.
+Open a new terminal and open syslog (for raspberry pi)
+$ tail -f /var/log/syslog
+Back to the first terminal and creaet any file and safe it
+$ nano ~/data/test.txt
+Then you can get back to syslog
+>> Mar 13 23:54:37 raspi01 incrond[3664]: PATH (/home/pi/data) FILE (test.txt) EVENT (IN_CLOSE_WRITE)
+>> Mar 13 23:54:37 raspi01 incrond[3664]: (pi) CMD (scp test.txt pi@raspi02:home/pi/data#011)
+
+
+
 
 
 
