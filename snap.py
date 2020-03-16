@@ -8,7 +8,7 @@ import os
 
 # Set working directories
 cwd = os.getcwd()
-cdd = os.path.join(cwd,'data/bf filter')
+cdd = os.path.join(cwd,'data')
 
 # Create/open a log file
 log = open(os.path.join(cdd, 'log.txt'), 'a+')
