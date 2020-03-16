@@ -3,8 +3,7 @@
 # import the necessary packages
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-from  time import time, ctime
-import cv2
+from  time import time, ctime, sleep
 import os
 
 # Set working directories
@@ -18,19 +17,11 @@ log = open(os.path.join(cdd, 'log.txt'), 'a+')
 timestamp = time()
 filename = str(timestamp) + '.jpg'
 
-# initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-rawCapture = PiRGBArray(camera)
-
-# allow the camera to warmup
-time.sleep(0.1)
-
-# grab an image from the camera
-camera.capture(rawCapture, format="bgr")
-image = rawCapture.array
-
-# Save image
-cv2.imwrite(filename,image)
+camera.start_preview()
+# Camera warm-up time
+sleep(2)
+camera.capture(filename)
 
 # Record log
 log.write('{} - {}\n'.format(ctime(timestamp), filename))
