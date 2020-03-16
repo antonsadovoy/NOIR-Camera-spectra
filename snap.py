@@ -23,7 +23,7 @@ camera.start_preview()
 
 # Camera warm-up time
 sleep(2)
-camera.capture(filename)
+camera.capture(filepath)
 
 # Record log
 log.write('{} - {}\n'.format(ctime(timestamp), filename))
