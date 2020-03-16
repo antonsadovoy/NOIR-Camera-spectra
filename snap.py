@@ -1,4 +1,3 @@
-#!~/.virtualenv/project01/bin/python
 # Author: Anton Sadovoy
 
 # import the necessary packages
@@ -35,3 +34,5 @@ cv2.imwrite(filename,image)
 
 # Record log
 log.write('{} - {}\n'.format(ctime(timestamp), filename))
+
+
