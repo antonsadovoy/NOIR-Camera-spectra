@@ -1,7 +1,6 @@
 # Author: Anton Sadovoy
 
 # import the necessary packages
-from picamera.array import PiRGBArray
 from picamera import PiCamera
 from  time import time, ctime, sleep
 import os
